@@ -1,0 +1,84 @@
+<html>
+<head>
+    <title>Heatmaps</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"></script>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id="floating-panel">
+    <button id="toggle-heatmap">Toggle Heatmap</button>
+    <button id="change-gradient">Change gradient</button>
+    <button id="change-radius">Change radius</button>
+    <button id="change-opacity">Change opacity</button>
+</div>
+<div id="floating-panel1">
+    <select name="crash_date" id="crash_date">
+        <option value="0">Избери година</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+    </select>
+    <select name="city" id="city">
+        <option value="0">Избери град</option>
+        <option value="1">Шумен</option>
+        <option value="2">Варна</option>
+        <option value="3">София</option>
+    </select>
+    <select name="crash_damage" id="crash_damage">
+        <option value="0">Избери щети</option>
+        <option value="1">Без наранени</option>
+        <option value="2">Лека телесна</option>
+        <option value="3">Пострадали с материални щети</option>
+        <option value="4">Тежко пострадали с много матриални щети</option>
+        <option value="5">Загинали</option>
+    </select>
+</div>
+<div id="map"></div>
+<!--
+  The `defer` attribute causes the callback to execute after the full HTML
+  document has been parsed. For non-blocking uses, avoiding race conditions,
+  and consistent behavior across browsers, consider loading using Promises.
+  See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+  for more information.
+  -->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMNk3ObPbPox3MgN_7y_paSmSOYDqaxZs&libraries=visualization&callback=initMap">
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectElements = document.querySelectorAll("select");
+
+        // Attach a change event listener to each select element
+        selectElements.forEach(function (select) {
+            select.addEventListener("change", function () {
+                // Call a function to update the filtered results
+                updateFilteredResults();
+            });
+        });
+    });
+
+    function updateFilteredResults() {
+        // Get the selected values from the select elements
+        const crashDate = document.getElementById("crash_date").value;
+        const city = document.getElementById("city").value;
+        const crashDamage = document.getElementById("crash_damage").value;
+
+        // Send an AJAX request to a PHP script to fetch filtered data
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "script.php?crash_date=" + crashDate + "&city=" + city + "&crash_damage=" + crashDamage, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Update the UI with the filtered data
+                const filteredData = JSON.parse(xhr.responseText);
+                // You can use this data to display it on your webpage
+                console.log(filteredData);
+            }
+        };
+        xhr.send();
+    }
+</script>
+</body>
+</html>
