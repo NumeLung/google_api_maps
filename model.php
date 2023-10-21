@@ -58,7 +58,7 @@ class model
     {
         $data = [];
 
-        $query = "SELECT crash_lat, crash_lng FROM crashes WHERE %s  ORDER BY id_crash";
+        $query = "SELECT crash_lat, crash_lng FROM crashes WHERE %s ORDER BY id_crash";
         $where = [];
         $where[] = 1;
         if(!empty($_POST['year'])){
@@ -73,7 +73,6 @@ class model
         }
 
         $query = sprintf($query, implode("\n AND ", $where));
-
 
         if ($sql = $this->conn->query($query)) {
             while ($row = mysqli_fetch_assoc($sql)) {

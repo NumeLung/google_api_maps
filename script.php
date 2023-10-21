@@ -10,11 +10,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-/*promenlivi eventualno za ajax
-$crash_date = $_GET["crash_date"];
-$city = $_GET["city"];
-$crash_damage = $_GET["crash_damage"];*/
-
 //base query to get the coordinates
 $query = "
 SELECT
