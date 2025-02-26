@@ -32,7 +32,7 @@
     </div>
     <div id="map"></div>
     <script async="false" type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMNk3ObPbPox3MgN_7y_paSmSOYDqaxZs&libraries=visualization&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=YOUR_MAPS_KEY&libraries=visualization&callback=initMap">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
